@@ -36,7 +36,7 @@ pipeline {
 		}	
 		steps {
 			script {
-			
+			dir('eksterraform') {
 				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_Credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 				sh """
 					terraform init
@@ -48,7 +48,7 @@ pipeline {
 					echo ${params.cluster}
 				"""
 				}
-			
+			}
         }
       }
     }
@@ -58,7 +58,7 @@ pipeline {
 		}	
 		steps {
 			script {
-			
+			dir('eksterraform') {
 				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_Credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 				if (fileExists('$HOME/.kube')) {
 					echo '.kube Directory Exists'
@@ -73,7 +73,7 @@ pipeline {
 				sleep 30
 				sh 'kubectl get nodes'
 				}
-			
+			}
         }
       }
     }
@@ -83,14 +83,14 @@ pipeline {
       }
       steps {
         script {
-			
+			dir('eksterraform') {
 				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_Credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 				sh """
 				terraform workspace select ${params.cluster}
 				terraform destroy -auto-approve
 				"""
 				}
-			
+			}
         }
       }
     }
