@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('checkout') {
         steps {
-            git 'https://github.com/shafiwebsphere/iac-demo.git'
+            git 'https://github.com/shafiwebsphere/New.git'
         }
     }
 	stage('Setup') {
@@ -69,8 +69,6 @@ pipeline {
 					terraform output kubeconfig > $HOME/.kube/config
 				"""
 				sh 'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
-				sleep 30
-				sh 'kubectl get nodes'
 				}
 			
         }
