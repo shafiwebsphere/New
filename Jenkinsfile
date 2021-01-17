@@ -10,7 +10,7 @@ pipeline {
     stage('checkout') {
         steps {
             checkout([$class: 'GitSCM', branches: [[name: '*/master']],
-    userRemoteConfigs: [[url: 'https://github.com/shafiwebsphere/New']]])
+    userRemoteConfigs: [[url: 'https://github.com/shafiwebsphere/New.git']]])
         }
     }
 	stage('Setup') {
